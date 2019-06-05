@@ -131,7 +131,7 @@ SHA3-256: aae3e14fd718aed758574f170c23a2f172a3690587340aa3c5c8d538ebd66bd4
 SHA3-512: 2620b58e343e8a80e091405b65ced686c58c3996854e092d01202dc91598d596aea148131c77513a4ae7f509800abcdb363c45864ef2e291206cd56775ff3e46
 " + "\n")]
         [InlineData(
-         "SHA3_VeryLongMsg.dat", true,
+         "SHA3_VeryLongMsg.dat", false,
 @"  File: SHA3_VeryLongMsg.dat
   CRC-32: 4ed80f64
    SHA-1: 6ca7cca8ac206ec5a82a612ee5d4ba6ac766d239
