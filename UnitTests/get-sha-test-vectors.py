@@ -8,7 +8,7 @@
 #
 # Downloads/builds SHA1-3 test vectors from the NIST Cryptographic Algorithm Validation Program
 
-import os, os.path, urllib.request, io, zipfile, glob, re
+import os, os.path, urllib.request, io, zipfile, glob, re, shutil
 
 
 # Determine and if necessary create the output directory
@@ -20,14 +20,21 @@ if not os.path.isdir(test_vectors_dir):
 
 # Download and unzip the two NIST test vector "response" files
 
-for sha_url in ('http://csrc.nist.gov/groups/STM/cavp/documents/shs/shabytetestvectors.zip',
-                'http://csrc.nist.gov/groups/STM/cavp/documents/sha3/sha-3bytetestvectors.zip'):
+for sha_url in ('https://csrc.nist.gov/csrc/media/projects/cryptographic-algorithm-validation-program/documents/shs/shabytetestvectors.zip',
+                'https://csrc.nist.gov/csrc/media/projects/cryptographic-algorithm-validation-program/documents/sha3/sha-3bytetestvectors.zip'):
     print('downloading and extracting', sha_url)
     with urllib.request.urlopen(sha_url) as sha_downloading:              # open connection to the download url;
         with io.BytesIO(sha_downloading.read()) as sha_downloaded_zip:    # download entirely into ram;
             with zipfile.ZipFile(sha_downloaded_zip) as sha_zipcontents:  # open the zip file from ram;
                 sha_zipcontents.extractall(test_vectors_dir)              # extract the zip file into the output dir
 
+for f in os.listdir(test_vectors_dir + 'shabytetestvectors\\'):
+    try:
+        shutil.move(test_vectors_dir + 'shabytetestvectors\\' + f, test_vectors_dir)
+    except OSError as err:
+        print("OS error: {0}".format(err))
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
 
 # Convert each response file into a set of test vector files and a single expected .sha* file
 

@@ -17,7 +17,7 @@ script_dir = os.path.dirname(__file__) or '.'
 # Download and unzip the NIST test vectors
 # (their files are all in a 'vectors' subdirectory in the zip file)
 
-md5_url = 'http://www.nsrl.nist.gov/testdata/NSRLvectors.zip'
+md5_url = 'https://s3.amazonaws.com/docs.nsrl.nist.gov/legacy/NSRLvectors.zip'
 print('downloading and extracting', md5_url)
 with urllib.request.urlopen(md5_url) as md5_downloading:              # open connection to the download url;
     with io.BytesIO(md5_downloading.read()) as md5_downloaded_zip:    # download entirely into ram;
